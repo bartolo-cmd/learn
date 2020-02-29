@@ -1,0 +1,20 @@
+import socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, protocol = 0)
+#wpisujemy nasz adres IP
+port = 50005
+sock.connect(('62.21.100.206',50005))
+
+#odbieranie
+msg = sock.recv(1024)
+
+# teraz po wyświetleniu msg powinno odczytać się to co zapisał pierwszy klient
+#możemy też zdekodować to co przysłał
+msg_decoded = msg.decode('utf-8')
+print(msg_decoded)
+
+#wyswietlenie wiadomosci
+print('message from server: ' + msg_decoded)
+msg_back = input('do you want to respond to the server ?')
+
+msg_back_encoded = msg_back.encode('utf-8')
+sock.send(msg_back_encoded)

@@ -1,0 +1,24 @@
+#66. Socket terminology
+#67. Connecting two machines
+
+import socket
+# (rodzina gniazda, typ gniazda, protokół)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#wpisujemy nasz adres IP
+s.bind(('62.21.100.206',50005))
+s.listen(5)
+clientsocket,clientaddress = s.accept()
+print(clientsocket)
+print(clientaddress)
+
+print('got a connection from %s' % str(clientaddress))
+msg = input('Enter any message: ')
+msg_encoded = msg.encode('utf-8')
+clientsocket.send(msg_encoded)
+
+
+#otrzymanie wiadomosci i zapisanie jej
+clientsocket.recv(1024)
+message_back = clientsocket.recv(1024)
+message_back_decoded = message_back.decode('utf-8')
+print('response from the client:' +message_back_decoded)
