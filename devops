@@ -1,0 +1,238 @@
+#include <stdio.h>
+#include <range>
+#include <list>
+#include <tostring>
+#include <string>
+#from string import Template
+
+"""i = 0
+while i<3:
+    print("Wartosc zmiennej wynosi "+str(i))
+    i = i+1
+
+squares = []
+for i in range(10):
+    squared = i*i
+    squares.append(squared)
+print(squares)
+"""
+
+output = """Barry
+sfsd
+fdfdsfdsdsf
+dsfdsfsdsd
+dsfsdf
+"""
+print(output.ljust(30))
+
+print("%s + %s = %s" % (1, 2, "Trzy"))
+print("%.3f" % 1.2345678)
+
+'''
+sekwencje
+np 2 int [1,2,3]
+10 in range(12)
+10 not in range(2,4)
+
+my_sequence = "Bill Cheatham"
+
+lista:
+range, 
+dodawanie do listy: append, insert
+usuwanie: pop, remove
+
+listy składane - funkcjonalność petli for iterującej po liście w jednej linijce. przykład:
+!!!PONIŻEJ ZWYKŁA PĘTLA FOR
+squares = []
+for i in range(10):
+    squared = i*i
+    squares.append(squared)
+print(squares)
+!!!A TERAZ TO SAMO Z LISTĄ SKŁADANĄ
+squares = [i*i for i in range(10)]
+print(squares)
+
+!!!można też wyfiltrować wyniki:
+squares = [i*i for i in range(10) if i%2==0]
+
+!!!USUWANIE SPACJI Z CIĄGU ZNAKÓW:
+cos.strip()
+jest jeszcze od prawej i od lewej: lstrip,rstrip
+
+!!!dodawanie wypełnienia do ciągów znaków (wyrównanie do lewej i prawej): ljust,rjust 
+
+!!!split() - dzielenie tekstu, domyślnie spacją, w nawiasie wpisujemy argument, np.
+>>> url = "gt.motomomo.io/v2/api/asset/143"
+>>> url.split('/')
+['gt.motomomo.io', 'v2', 'api', 'asset', '143']
+
+!!!join - łączenie wyrazów:
+>>> items = ['krowa', 'mleko', 'chleb', 'masło']
+>>> " i ".join(items)
+'krowa i mleko i chleb i masło'
+
+!!! działania na wielkości liter:
+>>> name = "bogdan nowak"
+>>> name.capitalize()
+'Bogdan nowak'
+>>> name.upper()
+'BOGDAN NOWAK'
+>>> name.title()
+'Bogdan Nowak'
+>>> name.swapcase()
+'BOGDAN NOWAK'
+>>> name = "BOGDAN NOWAK"
+>>> name.lower()
+'bogdan nowak'
+
+!!!metody weryfikujące:
+>>> "Walenty".startswith('W')
+True
+>>> "Walenty".startswith('Bogdan')
+False
+>>> "Walenty".endswith('enty')
+True
+>>> "abc123".isalnum()
+True
+>>> "abc123".isalpha()
+False
+>>> "abc".isalnum()
+True
+>>> "123".isnumeric()
+True
+>>> "Sabina".istitle()
+True
+>>> "Sabina".islower()
+False
+>>> "SABINA".isupper()
+True
+
+!!!formatowanie w starszej formie, zalecane stosowanie nowszych opcji formatowania:
+print("%s + %s = %s" % (1, 2, "Trzy"))
+wywoła: 1 + 2 = Trzy
+print("%.3f" % 1.2345678)
+wywoła: 1.235
+
+!!!NOWE FORMATOWANIE:
+>>> '{} występuje przed {}'.format('pierwszy', 'drugim')
+'pierwszy występuje przed drugim'
+!!!możemy powtarzać wyrazy w tekście przez podanie numerów indeksów:
+>>> '{1} występuje po {0}, ale {1} występuje przed {2}'.format('pierwszym',
+'drugi',
+'trzecim')
+'drugi występuje po pierwszym, ale drugi występuje przed trzecim'
+!!!wg nazwy:
+'{country} jest wyspą.... {country} leży u wybrzeży... {kontynent} na {ocean}'.format(ocean='Oceanie Indyjskim',
+... continent='Afryki',
+... country='Madagaskar')
+'Madagaskar jest wyspą.
+Madagaskar leży u wybrzeży
+Afryki na Oceanie Indyjskim'
+
+!!!ZDEFINIOWANIE WCZEŚNIEJ SŁOWNIKA W CELU DOSTARCZENIA WARTOŚCI KLUCZOWYCH DLA ZASTĘPOWANYCH PÓL:
+>>> values = {'imię': 'Bogdanie', 'nazwisko': 'Baczewski'}
+>>> "Czy dotarłeś do domu {first} {last}?".format(**values)
+"Czy dotarłeś do domu Bogdanie Baczewski?"
+
+!!!!f-ciągi - najlepsze!!!:
+>>> a = 1
+>>> b = 2
+>>> f"a ma wartość {a}, b ma wartość {b}. Ich suma wynosi {a + b}"
+'a ma wartość 1, b ma wartość 2. Ich suma wynosi 3'
+
+>>> count = 43
+>>> f"|{count:5d}"
+'| 43'
+
+>>> padding = 10
+>>> f"|{count:{padding}d}"
+'| 43'
+
+############################################################
+map=dict()
+type(map)
+!!!SŁOWNIKI - dict() - sekwencja klucz:wartość
+kv_list = [['klucz-1', 'wartość-1'], ['klucz-2', 'wartość-2']]
+print(dict(kv_list))
+
+map=dict()
+type(map)
+kv_list = [['klucz-1', 'wartość-1'], ['klucz-2', 'wartość-2']]
+print(dict(kv_list))
+
+map = {'klucz-1':'wartość-1', 'klucz-2':'wartość-2'}
+print(map)
+
+ZMIANA WARTOŚCI:
+>>> map
+{'klucz-1': 'wartość-1', 'klucz-2': 'wartość-2'}
+>>> map['klucz-3'] = 'wartość-3'
+>>> map
+{'klucz-1': 'wartość-1', 'klucz-2': 'wartość-2', 'klucz-3': 'wartość-3'}
+>>> map['klucz-1'] = 13
+>>> map
+{'klucz-1': 13, 'klucz-2': 'wartość-2', 'klucz-3': 'wartość-3'}
+
+!!!POBIERANIE WARTOŚCI ZE SŁOWNIKA
+>>> map.get('klucz-4', 'wartość-domyślna')
+'wartość-domyślna'
+!!!USUWANIE WARTOŚCI ZE SŁOWNIKA:
+>>> del(map['klucz-1'])
+>>> map
+{'klucz-2': 'wartość-2', 'klucz-3': 'wartość-3'}
+
+!!!ZWRACANIE WARTOŚCI KLUCZY I WARTOŚCI:
+>>> map.keys()
+dict_keys(['klucz-1', 'klucz-2'])
+>>> map.values()
+dict_values(['wartość-1', 'wartość-2'])
+>>> for key, value in map.items():
+... print(f"{key}: {value}")
+...
+...
+klucz-1: wartość-1
+klucz-2: wartość-2
+
+!!!!!!!SŁOWNIKI SKŁADANE:
+>>> letters = 'abcde'
+>>> # mapowanie poszczególnych liter na ich wielkie odpowiedniki
+>>> cap_map = {x: x.upper() for x in letters}
+>>> cap_map['b']
+'B'
+
+W KZYM
+
+
+def positioned(first,second):
+#    Przypisanie wartości na podstawie kolejności
+    print("pierwszy:"+str(first))
+    print("drugi:"+str(second))
+
+#positioned(1,2)
+
+def keywords(first=1,second=2):
+#    Przypisano wartości domyślne
+    print("pierwszy:"+str(first))
+    print("drugi:"+str(second))
+    
+keywords(0)
+
+def no_return():
+#    Nie zdefiniowano zwracanej wartości - brak return
+    pass
+
+result = no_return()
+print(result)
+
+def return_one():
+    #Zwraca 1
+    return 1
+result_1 = return_one()
+print(result_1)
+'''
+
+def double(input):
+    #podwaja wartość wejściową
+    return input*2
+
+print(double)    
